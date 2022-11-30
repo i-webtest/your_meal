@@ -1,5 +1,8 @@
-const modalProduct = document.querySelector(".modal_product");
-const catalogtList = document.querySelector(".catalog__list");
+import { modalProduct, catalogtList } from "./elements.js";
+import { openModal } from "./openModal.js";
+import { createCardProduct } from "./createCardProduct.js";
+import { renderListProduct } from "./renderListProduct.js";
+import { navigationListController } from "./navigationListController.js";
 
 const burgerMax = {
   title: "Бургер Макс",
@@ -9,35 +12,6 @@ const burgerMax = {
   description: "Огромный бургер, съешь сам или поделись с компанией",
   image: "img/megaburger.jpg",
   ingredients: ["Пшеничная булочка", "Мега котлета из говядины", "Много сыра", "Листья салата", "Чипотл"],
-};
-
-const openModal = (product) => {
-  const modalProductTitle = document.querySelector(".modal-product__title");
-  const modalProductImage = document.querySelector(".modal-product__image");
-  const modalProductDescription = document.querySelector(".modal-product__description");
-  const ingredientsList = document.querySelector(".ingredients__list");
-  const ingredientsCalories = document.querySelector(".ingredients__calories");
-  const modalProductPriceCount = document.querySelector(".modal-product__price-count");
-
-  modalProductTitle.textContent = product.title;
-  modalProductImage.src = product.image;
-  ingredientsList.textContent = "";
-
-  modalProductDescription.textContent = product.description;
-  ingredientsCalories.textContent = `${product.weight}г, ккал ${product.calories}`;
-  modalProductPriceCount.textContent = product.price;
-
-  const ingredientsListItems = product.ingredients.map((item) => {
-    const li = document.createElement("li");
-
-    li.classList.add("ingredients__item");
-    li.textContent = item;
-    return li;
-  });
-
-  ingredientsList.append(...ingredientsListItems);
-
-  modalProduct.classList.add("modal_open");
 };
 
 catalogtList.addEventListener("click", (event) => {
@@ -55,3 +29,10 @@ modalProduct.addEventListener("click", (event) => {
     modalProduct.classList.remove("modal_open");
   }
 });
+
+const init = () => {
+  renderListProduct();
+  navigationListController();
+};
+
+init();

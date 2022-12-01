@@ -1,18 +1,8 @@
 import { modalProduct, catalogtList } from "./elements.js";
 import { openModal } from "./openModal.js";
-import { createCardProduct } from "./createCardProduct.js";
 import { renderListProduct } from "./renderListProduct.js";
 import { navigationListController } from "./navigationListController.js";
-
-const burgerMax = {
-  title: "Бургер Макс",
-  price: 10000,
-  weight: 5000,
-  calories: 15000,
-  description: "Огромный бургер, съешь сам или поделись с компанией",
-  image: "img/megaburger.jpg",
-  ingredients: ["Пшеничная булочка", "Мега котлета из говядины", "Много сыра", "Листья салата", "Чипотл"],
-};
+import { cartInit } from "./cart.js";
 
 const closeModal = (event) => {
   if (event.key === "Escape") {
@@ -25,7 +15,9 @@ catalogtList.addEventListener("click", (event) => {
   const target = event.target;
 
   if (target.closest(".product__detail") || target.closest(".product__image")) {
-    openModal(burgerMax);
+    const id = target.closest(".product").dataset.idProduct;
+    console.log("id: ", id);
+    openModal(id);
     document.addEventListener("keydown", closeModal);
   }
 });
@@ -40,7 +32,8 @@ modalProduct.addEventListener("click", (event) => {
 
 const init = () => {
   renderListProduct();
-  navigationListController();
+  navigationListController(renderListProduct);
+  cartInit();
 };
 
 init();

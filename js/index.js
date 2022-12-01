@@ -14,11 +14,19 @@ const burgerMax = {
   ingredients: ["Пшеничная булочка", "Мега котлета из говядины", "Много сыра", "Листья салата", "Чипотл"],
 };
 
+const closeModal = (event) => {
+  if (event.key === "Escape") {
+    modalProduct.classList.remove("modal_open");
+    document.removeEventListener("keydown", closeModal);
+  }
+};
+
 catalogtList.addEventListener("click", (event) => {
   const target = event.target;
 
   if (target.closest(".product__detail") || target.closest(".product__image")) {
     openModal(burgerMax);
+    document.addEventListener("keydown", closeModal);
   }
 });
 
